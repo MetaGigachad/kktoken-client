@@ -1,2 +1,3 @@
-# kktoken-client
+# KKToken Client
+
 Client for KKToken.
