@@ -1,0 +1,10 @@
+target_sources(kktoken-client
+    PRIVATE
+    Signature.cpp
+    Signature.h
+    TokensAmount.cpp
+    TokensAmount.h
+    Transaction.cpp
+    Transaction.h
+    User.cpp
+    User.h)
