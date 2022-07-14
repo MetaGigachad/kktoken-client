@@ -1,4 +1,4 @@
-target_sources(kktoken-client
+target_sources(run-client
     PRIVATE
     Signature.cpp
     Signature.h
