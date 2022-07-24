@@ -1,6 +1,6 @@
 target_sources(run-client
     PRIVATE
-    core.cpp)
+    main.cpp)
 
-add_subdirectory(data-objects)
-add_subdirectory(networking)
+add_subdirectory(structs)
+add_subdirectory(communication)

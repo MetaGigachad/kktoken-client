@@ -23,4 +23,4 @@ get_target_property(CLIENT_SOURCES run-client SOURCES)
 list(REMOVE_AT CLIENT_SOURCES 0)    # Removes "core.cpp" file from list to avoid 2 main functions
 
 add_catch(tests-main ${CLIENT_SOURCES})
-add_subdirectory(tests)
+#add_subdirectory(tests)
