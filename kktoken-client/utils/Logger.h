@@ -3,38 +3,60 @@
 #include <chrono>
 #include <iomanip>
 #include <iostream>
+#include <sstream>
 #include <string>
 
-class Logger {
+#include <interface/console/Renderer.h>
+
+class Log {
   public:
     enum Level { Normal,
                  Debug,
                  Error,
                  CriticalError };
 
-    Logger() {}
+    std::time_t time;
+    Level level;
+    std::string message;
 
-    void log(const char* message, Level level) {
-        auto time = std::time(nullptr);
-        std::cerr << std::put_time(std::localtime(&time), "%F %T%z") << " : ";
+    Log(Level level, const char* message)
+        : level(level), message(message) {
+        time = std::time(nullptr);
+    }
 
-        std::cerr << "LOGGER : ";
+    std::string toString() {
+        std::stringstream output;
+        output << std::put_time(std::localtime(&time), "%F %T%z") << " : ";
+
+        output << "LOGGER : ";
 
         switch (level) {
-            case Normal:
-                std::cerr << "NORMAL        ";
+            case Log::Normal:
+                output << "NORMAL        ";
                 break;
-            case Debug:
-                std::cerr << "DEBUG         ";
+            case Log::Debug:
+                output << "DEBUG         ";
                 break;
-            case Error:
-                std::cerr << "ERROR         ";
+            case Log::Error:
+                output << "ERROR         ";
                 break;
-            case CriticalError:
-                std::cerr << "CRITICAL_ERROR";
+            case Log::CriticalError:
+                output << "CRITICAL_ERROR";
                 break;
         }
 
-        std::cerr << " : " << message << std::endl;
+        output << " : " << message << std::endl;
+        return output.str();
+    }
+};
+
+class Logger {
+  public:
+    Logger() {}
+
+    void log(const char* message, Log::Level level) {
+        Log log(level, message);
+        Renderer log_renderer;
+        log_renderer.renderLog(log.toString());
     }
 };
