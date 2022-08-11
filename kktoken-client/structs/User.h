@@ -10,7 +10,6 @@ class User {
     // TODO: Getters, ToString, Encoder
 protected:
     uint32_t id_;
-    std::u16string name_;
 
     // TODO: Public key
 };

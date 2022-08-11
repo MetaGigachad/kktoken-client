@@ -1,4 +1,4 @@
-target_sources(run-client
+target_sources(client
     PRIVATE
     Signature.cpp
     Signature.h

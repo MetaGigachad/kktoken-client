@@ -1,16 +1,23 @@
-//
-// Created by inqognitoo on 7/24/22.
-//
+#pragma once
 
-#ifndef KKTOKEN_CLIENT_KKTOKEN_CLIENT_CORE_APPLICATION_H_
-#define KKTOKEN_CLIENT_KKTOKEN_CLIENT_CORE_APPLICATION_H_
+#include <array>
+#include <boost/asio.hpp>
 
-#include <vector>
-#include "Service.h"
+#include "utils/Logger.h"
 
-class Application
-{
-  //todo: make class that controls services
+#define THREADS_COUNT 1
+
+class Application {
+  public:
+    Application();
+
+    void run();
+    void stop();
+    void forceStop();
+
+  private:
+    boost::asio::io_context execution_context_;
+    boost::asio::executor_work_guard<boost::asio::io_context::executor_type> work_guard_;
+
+    Logger logger_;
 };
-
-#endif//KKTOKEN_CLIENT_KKTOKEN_CLIENT_CORE_APPLICATION_H_
