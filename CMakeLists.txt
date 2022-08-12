@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.21)
-project("kktoken-client")
+project("src")
 
 set(CMAKE_CXX_STANDARD 20)
 
@@ -8,7 +8,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
 set(CMAKE_EXPORT_COMPILE_COMMANDS  ON)
 
-# Catch Library Setup
+# Catch setup
 include(cmake/BuildFlags.cmake)
 include(cmake/TestSolution.cmake)
 include_directories(contrib/catch)
@@ -20,17 +20,17 @@ set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
 find_package(Boost REQUIRED COMPONENTS system coroutine serialization)
 
-# Main Executable
+# Main executable
 add_executable(client)
-add_subdirectory(kktoken-client)
-target_include_directories(client PUBLIC kktoken-client ${Boost_INCLUDE_DIRS})
+add_subdirectory(src)
+target_include_directories(client PUBLIC src ${Boost_INCLUDE_DIRS})
 target_link_libraries(client ${Boost_LIBRARIES})
 # Tests
 get_target_property(CLIENT_SOURCES client SOURCES)
 list(REMOVE_AT CLIENT_SOURCES 0)    # Removes "core.cpp" file from list to avoid 2 main functions
 
 add_catch(tests-main ${CLIENT_SOURCES})
-target_include_directories(tests-main PUBLIC kktoken-client)
+target_include_directories(tests-main PUBLIC src)
 #add_subdirectory("tests")
 
 # Scratch targets
