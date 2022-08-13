@@ -7,36 +7,35 @@
 
 #include <interface/console/Renderer.h>
 
-class Controller {
+class Controller { // is it service, huh?
   public:
     Controller(boost::asio::io_context* context)
         : context_(context) {}
 
     void run() {
-        renderer_.renderStartScreen();
+        Renderer::renderStartScreen();
 
         while (true) {
             std::string input;
 
-            renderer_.renderPrompt();
+            Renderer::renderPrompt();
             std::cin >> input;
 
             if (input == "quit") {
                 Application* app = application_;
-                boost::asio::post(*context_, [app]() { app->stop(); });
+                app->stop();
                 break;
             } else if (input == "force quit") {
                 Application* app = application_;
-                boost::asio::post(*context_, [app]() { app->forceStop(); });
+                app->forceStop();
                 break;
             } else if (input == "help") {
-                renderer_.renderMessage(std::string("quit - finishes tasks then quits\nforce quit - quits without finishing tasks"));
+                Renderer::renderMessage(std::string("quit - finishes tasks then quits\nforce quit - quits without finishing tasks"));
             }
         }
     }
 
   private:
-    Renderer renderer_;
     boost::asio::io_context* context_;
-    Application* application_;
+    Application* application_; // singleton instance
 };
