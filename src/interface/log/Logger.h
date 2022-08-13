@@ -1,13 +1,7 @@
 #pragma once
 
-#include <chrono>
-#include <iomanip>
-#include <iostream>
-#include <sstream>
-#include <string>
-
-#include "interface/console/Renderer.h"
 #include "Record.h"
+#include "interface/console/Renderer.h"
 
 class Logger {
   public:

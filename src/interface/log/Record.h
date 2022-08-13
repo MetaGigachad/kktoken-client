@@ -1,48 +1,39 @@
-//
-// Created by Inqognitoo on 13.08.2022.
-//
+#pragma once
 
-#ifndef KKTOKEN_CLIENT_SRC_INTERFACE_LOG_RECORD_H_
-#define KKTOKEN_CLIENT_SRC_INTERFACE_LOG_RECORD_H_
+#include <boost/algorithm/string.hpp>
+#include <chrono>
+#include <iomanip>
+#include <iosfwd>
+#include <magic_enum.hpp>
 
 class Record {
   public:
     enum Level {
-        Trace,      // Use for tracing something during development phase
-        Debug,      // Use for information needed for diagnosing issues and troubleshooting etc
-        Info,       // Use for indicate that something normal happened
-        Warn,       // Use for warn
-        Error,      // Use for runtime errors (application logic level)
-        Fatal,      // Use for fatal errors (application core level)
+        TRACE,  // Use for tracing something during development phase
+        DEBUG,  // Use for information needed for diagnosing issues and troubleshooting etc
+        INFO,   // Use for indicate that something normal happened
+        WARN,   // Use for warn
+        ERROR,  // Use for runtime errors (application logic level)
+        FATAL,  // Use for fatal errors (application core level)
     };
 
-    std::time_t time;
+    std::chrono::time_point<std::chrono::system_clock> time;
     Level level;
     std::string message;
 
     Record(Level level, const char* message)
         : level(level), message(message) {
-        time = std::time(nullptr); // todo: [?] std::chrono::time_point and std::chrono::system_clock::now() [?]
+        time = std::chrono::system_clock::now();
     }
 
-    std::string toString() { // is it serializable, huh?
+    std::string toString() {
         std::ostringstream output;
-        output << std::put_time(std::localtime(&time), "%F %T%z") << " : ";
+        const time_t c_time = std::chrono::system_clock::to_time_t(time);
 
-        output << "LOGGER ["; // :[ sad
+        output << std::put_time(std::localtime(&c_time), "%F %T%z") << " : "
+               << "LOGGER [" << magic_enum::enum_name(level) << "] : "
+               << message << std::endl;
 
-        switch (level) {
-            case Record::Trace: output << "TRACE"; break;
-            case Record::Debug: output << "DEBUG"; break;
-            case Record::Info:  output << "INFO "; break;
-            case Record::Warn:  output << "WARN "; break;
-            case Record::Error: output << "ERROR"; break;
-            case Record::Fatal: output << "FATAL"; break;
-        }
-
-        output << "]: " << message << std::endl; // ]: too sad because sad too
         return output.str();
     }
 };
-
-#endif//KKTOKEN_CLIENT_SRC_INTERFACE_LOG_RECORD_H_

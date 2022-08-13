@@ -32,7 +32,7 @@ access to effective operations in KKToken blockchain.
 
 This project uses **conan** as a package manager.
 
-To isntall it you should have python 3 installed ([more info](https://docs.conan.io/en/latest/installation.html). Then just run
+To install it you should have python 3 and pip installed ([more info](https://docs.conan.io/en/latest/installation.html)). Then just run
 
 ``` sh
 pip install conan
