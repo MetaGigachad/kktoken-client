@@ -9,7 +9,7 @@
 
 class Application {
   public:
-    Application(); // i want singleton :[
+    Application();// i want singleton :[
 
     void run();
     void stop();
@@ -18,4 +18,6 @@ class Application {
   private:
     boost::asio::io_context execution_context_;
     boost::asio::executor_work_guard<boost::asio::io_context::executor_type> work_guard_;
+
+    Logger logger_;
 };
