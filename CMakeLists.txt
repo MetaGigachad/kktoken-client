@@ -5,6 +5,9 @@ project("KKToken Client"
   DESCRIPTION "Client for nodes of KKToken blockchain network."
   LANGUAGES CXX)
 
+# CMake config
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 # Compiler config
 set(CMAKE_CXX_STANDARD 20)
 add_compile_options(
@@ -17,7 +20,6 @@ add_compile_options(
 # Variables setup
 set(CLIENT_SOURCE_DIR "${PROJECT_SOURCE_DIR}/src")
 file(GLOB_RECURSE CLIENT_SOURCES "${CLIENT_SOURCE_DIR}/*.cpp" "${CLIENT_SOURCE_DIR}/*.h")
-message(${CLIENT_SOURCES})
 
 # Boost setup
 find_package(Boost REQUIRED COMPONENTS system coroutine serialization)
