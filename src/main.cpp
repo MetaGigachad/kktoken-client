@@ -6,7 +6,7 @@ int main() {
 
     try {
         app.run();
-    } catch (std::exception) {
+    } catch (std::exception& e) {
         // TODO: logging
     } catch (...) {
         // same here
