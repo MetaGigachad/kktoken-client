@@ -11,7 +11,7 @@ Application::Application()
 void Application::run() {
     boost::asio::io_context* context = &execution_context_;
 
-    logger_.log("Starting execution_context in threads.", Log::Debug);
+    logger_.log("Starting execution_context in threads.", Record::Debug);
 
     std::array<std::thread, THREADS_COUNT> threads;
 
