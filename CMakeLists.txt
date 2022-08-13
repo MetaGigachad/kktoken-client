@@ -17,14 +17,20 @@ add_compile_options(
        $<$<CONFIG:DEBUG>:-ggdb3>
 )
 
+# Conan setup
+include("${PROJECT_BINARY_DIR}/conanbuildinfo.cmake")
+conan_basic_setup()
+
 # Variables setup
 set(CLIENT_SOURCE_DIR "${PROJECT_SOURCE_DIR}/src")
 file(GLOB_RECURSE CLIENT_SOURCES "${CLIENT_SOURCE_DIR}/*.cpp" "${CLIENT_SOURCE_DIR}/*.h")
 
 # Boost setup
-find_package(Boost REQUIRED COMPONENTS system coroutine serialization)
+#find_package(Boost REQUIRED COMPONENTS system coroutine serialization)
 
 # Client executable
 add_executable(client ${CLIENT_SOURCES})
-target_include_directories(client PRIVATE ${CLIENT_SOURCE_DIR} ${Boost_INCLUDE_DIRS})
-target_link_libraries(client ${Boost_LIBRARIES})
+#target_include_directories(client PRIVATE ${CLIENT_SOURCE_DIR} ${Boost_INCLUDE_DIRS})
+#target_link_libraries(client ${Boost_LIBRARIES})
+target_include_directories(client PRIVATE ${CLIENT_SOURCE_DIR})
+target_link_libraries(client ${CONAN_LIBS})

@@ -23,3 +23,33 @@ access to effective operations in KKToken blockchain.
     ├── serialization       # serialization
     │
     └── structs             # blockchain structures
+
+## How To
+
+### Setup project
+
+#### Conan
+
+This project uses **conan** as a package manager.
+
+To isntall it you should have python 3 installed ([more info](https://docs.conan.io/en/latest/installation.html). Then just run
+
+``` sh
+pip install conan
+```
+
+#### Finish
+
+Run this script to complete installation.
+
+``` sh
+tools/setup.sh
+```
+
+### Build project
+
+Just run this to build project.
+
+``` sh
+tools/build.sh
+```
